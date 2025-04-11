@@ -3,552 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donation Form Builder</title>
+    <title>Simple Donation Form Builder</title>
     <style>
-        /* Reset and basic styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f7f9fc;
             padding: 20px;
-        }
-        
-        /* Main container */
-        .app-container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
         }
         
-        /* Form section */
         .form-section {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            padding: 30px;
-        }
-        
-        /* Typography */
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #2563eb;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        
-        h2 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #2563eb;
-            margin: 25px 0 15px 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        /* Form elements */
-        .form-group {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
             margin-bottom: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2563eb;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
         }
         
         label {
             display: block;
-            font-weight: 500;
-            margin-bottom: 6px;
-            color: #4b5563;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
         
-        input[type="text"],
-        textarea {
+        input, textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 16px;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
         
-        input[type="text"]:focus,
-        textarea:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-            outline: none;
-        }
-        
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        .emoji-input {
-            width: 70px;
-            font-size: 24px;
-            text-align: center;
-        }
-        
-        /* Option containers */
-        .option-container {
-            background-color: #f8fafc;
-            border-radius: 8px;
-            border-left: 4px solid #3b82f6;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-        
-        .option-title {
-            background: #e0e7ff;
-            color: #4338ca;
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-        
-        .option-row {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .option-row .form-group:last-child {
-            flex: 1;
-        }
-        
-        .followup-container {
-            background-color: #eff6ff;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 15px;
-        }
-        
-        /* Button styles */
         .generate-button {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 30px auto 0;
-            padding: 14px 20px;
-            background: linear-gradient(to right, #2563eb, #3b82f6);
+            background: #2563eb;
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            font-size: 16px;
+            margin-top: 20px;
         }
         
-        .generate-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
-        }
-        
-        /* Code section */
-        .code-section {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            padding: 30px;
-        }
-        
-        .code-container {
-            position: relative;
-        }
-        
-        .code-textarea {
+        .code-area {
             width: 100%;
             height: 300px;
-            padding: 15px 15px 15px 15px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             font-family: monospace;
-            font-size: 14px;
-            resize: vertical;
-            background-color: #f8fafc;
+            margin-top: 20px;
         }
         
         .copy-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #6b7280;
+            background: #555;
             color: white;
             border: none;
+            padding: 8px 16px;
             border-radius: 4px;
-            padding: 6px 12px;
-            font-size: 14px;
             cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .copy-button:hover {
-            background: #4b5563;
-        }
-        
-        .copy-success {
-            background: #10b981 !important;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Form Section -->
-        <div class="form-section">
-            <h1>Donation Form Builder</h1>
-            
-            <form id="donationForm">
-                <div>
-                    <h2>Main Settings</h2>
-                    <div class="form-group">
-                        <label for="popupTitle">Popup Title</label>
-                        <input type="text" id="popupTitle" value="Your $5 makes a difference!">
-                    </div>
-                </div>
-                
-                <div>
-                    <h2>Donation Options</h2>
-                    
-                    <!-- Option 1 -->
-                    <div class="option-container">
-                        <div class="option-title">Option 1</div>
-                        
-                        <div class="option-row">
-                            <div class="form-group">
-                                <label for="option1Emoji">Emoji</label>
-                                <input type="text" id="option1Emoji" class="emoji-input" value="💧">
-                            </div>
-                            <div class="form-group">
-                                <label for="option1Title">Title</label>
-                                <input type="text" id="option1Title" value="Dig the Well">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="option1Description">Description</label>
-                            <input type="text" id="option1Description" value="$5 funds 1 inch of well drilling">
-                        </div>
-                        
-                        <div class="followup-container">
-                            <div class="form-group">
-                                <label for="followup1Title">Follow-up Title</label>
-                                <input type="text" id="followup1Title" value="Clean Water Changes Lives">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="followup1Content">Follow-up Content</label>
-                                <textarea id="followup1Content">Clean water is essential for health, education, and prosperity. Your contribution helps us dig wells that provide clean water to communities in Tanzania.</textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="followup1ButtonText">Button Text</label>
-                                <input type="text" id="followup1ButtonText" value="Donate $5 for Well Drilling">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Option 2 -->
-                    <div class="option-container">
-                        <div class="option-title">Option 2</div>
-                        
-                        <div class="option-row">
-                            <div class="form-group">
-                                <label for="option2Emoji">Emoji</label>
-                                <input type="text" id="option2Emoji" class="emoji-input" value="🚜">
-                            </div>
-                            <div class="form-group">
-                                <label for="option2Title">Title</label>
-                                <input type="text" id="option2Title" value="Fuel the Tractors">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="option2Description">Description</label>
-                            <input type="text" id="option2Description" value="$5 powers 1 hour of tractor operation">
-                        </div>
-                        
-                        <div class="followup-container">
-                            <div class="form-group">
-                                <label for="followup2Title">Follow-up Title</label>
-                                <input type="text" id="followup2Title" value="Modern Farming Equipment">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="followup2Content">Follow-up Content</label>
-                                <textarea id="followup2Content">Modern farming equipment helps communities produce more food with less manual labor. Your contribution helps power tractors that increase agricultural productivity.</textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="followup2ButtonText">Button Text</label>
-                                <input type="text" id="followup2ButtonText" value="Donate $5 for Tractors">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Option 3 -->
-                    <div class="option-container">
-                        <div class="option-title">Option 3</div>
-                        
-                        <div class="option-row">
-                            <div class="form-group">
-                                <label for="option3Emoji">Emoji</label>
-                                <input type="text" id="option3Emoji" class="emoji-input" value="👨‍🌾">
-                            </div>
-                            <div class="form-group">
-                                <label for="option3Title">Title</label>
-                                <input type="text" id="option3Title" value="Train Farmers">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="option3Description">Description</label>
-                            <input type="text" id="option3Description" value="$5 contributes to training sessions">
-                        </div>
-                        
-                        <div class="followup-container">
-                            <div class="form-group">
-                                <label for="followup3Title">Follow-up Title</label>
-                                <input type="text" id="followup3Title" value="Knowledge and Skills">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="followup3Content">Follow-up Content</label>
-                                <textarea id="followup3Content">Knowledge and skills are crucial for sustainable agriculture. Your contribution helps provide training to local farmers on modern farming techniques.</textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="followup3ButtonText">Button Text</label>
-                                <input type="text" id="followup3ButtonText" value="Donate $5 for Farmer Training">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Option 4 -->
-                    <div class="option-container">
-                        <div class="option-title">Option 4</div>
-                        
-                        <div class="option-row">
-                            <div class="form-group">
-                                <label for="option4Emoji">Emoji</label>
-                                <input type="text" id="option4Emoji" class="emoji-input" value="🙏">
-                            </div>
-                            <div class="form-group">
-                                <label for="option4Title">Title</label>
-                                <input type="text" id="option4Title" value="General Support">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="option4Description">Description</label>
-                            <input type="text" id="option4Description" value="$5 helps our mission in Tanzania">
-                        </div>
-                        
-                        <div class="followup-container">
-                            <div class="form-group">
-                                <label for="followup4Title">Follow-up Title</label>
-                                <input type="text" id="followup4Title" value="Support Our Mission">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="followup4Content">Follow-up Content</label>
-                                <textarea id="followup4Content">Our mission in Tanzania requires flexibility to address the most urgent needs. Your contribution to general support helps us allocate resources where they're needed most.</textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="followup4ButtonText">Button Text</label>
-                                <input type="text" id="followup4ButtonText" value="Donate $5 for General Support">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button type="submit" class="generate-button">Generate Code</button>
-            </form>
+    <h1>Simple Donation Form Builder</h1>
+    
+    <div class="form-section">
+        <div class="form-group">
+            <label for="popupTitle">Popup Title</label>
+            <input type="text" id="popupTitle" value="Your $5 makes a difference!">
         </div>
-
-        <!-- Code Output Section (always present) -->
-        <div class="code-section">
-            <h2>Generated Code</h2>
-            <div class="code-container">
-                <textarea id="codeOutput" class="code-textarea" placeholder="Click 'Generate Code' to create your donation widget code..." readonly></textarea>
-                <button id="copyButton" class="copy-button">Copy Code</button>
-            </div>
+        
+        <h2>Option 1</h2>
+        <div class="form-group">
+            <label for="option1Emoji">Emoji</label>
+            <input type="text" id="option1Emoji" value="💧">
         </div>
+        <div class="form-group">
+            <label for="option1Title">Title</label>
+            <input type="text" id="option1Title" value="Dig the Well">
+        </div>
+        <div class="form-group">
+            <label for="option1Description">Description</label>
+            <input type="text" id="option1Description" value="$5 funds 1 inch of well drilling">
+        </div>
+        
+        <button onclick="generateCode()" class="generate-button">Generate Code</button>
     </div>
-
+    
+    <h2>Generated Code</h2>
+    <textarea id="codeOutput" class="code-area" readonly></textarea>
+    <button onclick="copyCode()" class="copy-button">Copy Code</button>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("DOM fully loaded");
-            
-            // Form submission handler
-            document.getElementById('donationForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                console.log("Form submitted, generating code...");
-                generateCode();
-            });
-            
-            // Copy button handler
-            document.getElementById('copyButton').addEventListener('click', function() {
-                const codeOutput = document.getElementById('codeOutput');
-                if (!codeOutput.value) {
-                    alert("Please generate code first by clicking the 'Generate Code' button.");
-                    return;
-                }
-                
-                codeOutput.select();
-                try {
-                    // Modern approach
-                    navigator.clipboard.writeText(codeOutput.value)
-                        .then(() => {
-                            console.log("Code copied to clipboard using Clipboard API");
-                            showCopiedMessage();
-                        })
-                        .catch(err => {
-                            console.error("Clipboard API failed:", err);
-                            // Fallback to execCommand
-                            document.execCommand('copy');
-                            console.log("Code copied to clipboard using execCommand");
-                            showCopiedMessage();
-                        });
-                } catch (err) {
-                    console.error("Copy failed:", err);
-                    alert("Failed to copy code. Please select and copy manually.");
-                }
-            });
-            
-            function showCopiedMessage() {
-                const copyButton = document.getElementById('copyButton');
-                const originalText = copyButton.textContent;
-                copyButton.textContent = 'Copied!';
-                copyButton.classList.add('copy-success');
-                setTimeout(() => {
-                    copyButton.textContent = originalText;
-                    copyButton.classList.remove('copy-success');
-                }, 2000);
-            }
-        });
-
-        // Generate code function
+        // Simple function to generate code
         function generateCode() {
-            console.log("Generating code...");
+            var popupTitle = document.getElementById('popupTitle').value;
+            var emoji = document.getElementById('option1Emoji').value;
+            var title = document.getElementById('option1Title').value;
+            var description = document.getElementById('option1Description').value;
             
-            // Get values from form
-            const popupTitle = document.getElementById('popupTitle').value;
-            
-            // Get donation options
-            const options = [];
-            for (let i = 1; i <= 4; i++) {
-                options.push({
-                    emoji: document.getElementById(`option${i}Emoji`).value,
-                    title: document.getElementById(`option${i}Title`).value,
-                    description: document.getElementById(`option${i}Description`).value,
-                    followupTitle: document.getElementById(`followup${i}Title`).value,
-                    followupContent: document.getElementById(`followup${i}Content`).value,
-                    followupButtonText: document.getElementById(`followup${i}ButtonText`).value
-                });
-            }
-            
-            // Generate HTML
-            const html = `<!-- Donation Widget HTML -->
+            var generatedCode = `<!-- Donation Widget HTML -->
 <div class="donation-widget">
     <!-- Main Popup -->
     <div class="donation-popup">
         <div class="popup-title">${popupTitle}</div>
         
-        <div class="donation-option" data-option="1">
-            <div class="donation-emoji">${options[0].emoji}</div>
+        <div class="donation-option">
+            <div class="donation-emoji">${emoji}</div>
             <div class="donation-content">
-                <div class="donation-title">${options[0].title}</div>
-                <div class="donation-description">${options[0].description}</div>
-            </div>
-        </div>
-        
-        <div class="donation-option" data-option="2">
-            <div class="donation-emoji">${options[1].emoji}</div>
-            <div class="donation-content">
-                <div class="donation-title">${options[1].title}</div>
-                <div class="donation-description">${options[1].description}</div>
-            </div>
-        </div>
-        
-        <div class="donation-option" data-option="3">
-            <div class="donation-emoji">${options[2].emoji}</div>
-            <div class="donation-content">
-                <div class="donation-title">${options[2].title}</div>
-                <div class="donation-description">${options[2].description}</div>
-            </div>
-        </div>
-        
-        <div class="donation-option" data-option="4">
-            <div class="donation-emoji">${options[3].emoji}</div>
-            <div class="donation-content">
-                <div class="donation-title">${options[3].title}</div>
-                <div class="donation-description">${options[3].description}</div>
+                <div class="donation-title">${title}</div>
+                <div class="donation-description">${description}</div>
             </div>
         </div>
         
         <div class="popup-close">Close</div>
     </div>
-    
-    <!-- Follow-up Cards -->
-    <div class="followup-card" id="followup1">
-        <div class="followup-header">
-            <div class="followup-emoji">${options[0].emoji}</div>
-            <div class="followup-title">${options[0].followupTitle}</div>
-        </div>
-        <div class="followup-content">${options[0].followupContent}</div>
-        <button class="donate-button">${options[0].followupButtonText}</button>
-        <div class="back-link">Back to options</div>
-    </div>
-    
-    <div class="followup-card" id="followup2">
-        <div class="followup-header">
-            <div class="followup-emoji">${options[1].emoji}</div>
-            <div class="followup-title">${options[1].followupTitle}</div>
-        </div>
-        <div class="followup-content">${options[1].followupContent}</div>
-        <button class="donate-button">${options[1].followupButtonText}</button>
-        <div class="back-link">Back to options</div>
-    </div>
-    
-    <div class="followup-card" id="followup3">
-        <div class="followup-header">
-            <div class="followup-emoji">${options[2].emoji}</div>
-            <div class="followup-title">${options[2].followupTitle}</div>
-        </div>
-        <div class="followup-content">${options[2].followupContent}</div>
-        <button class="donate-button">${options[2].followupButtonText}</button>
-        <div class="back-link">Back to options</div>
-    </div>
-    
-    <div class="followup-card" id="followup4">
-        <div class="followup-header">
-            <div class="followup-emoji">${options[3].emoji}</div>
-            <div class="followup-title">${options[3].followupTitle}</div>
-        </div>
-        <div class="followup-content">${options[3].followupContent}</div>
-        <button class="donate-button">${options[3].followupButtonText}</button>
-        <div class="back-link">Back to options</div>
-    </div>
 </div>
 
-<!-- CSS Styles -->
 <style>
     .donation-widget {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-family: Arial, sans-serif;
         line-height: 1.6;
-        color: #333;
     }
     
-    /* Donation Popup */
     .donation-popup {
         width: 300px;
         background: white;
@@ -565,7 +152,6 @@
     
     .donation-option {
         display: flex;
-        align-items: flex-start;
         padding: 10px;
         background: #f8f8f8;
         border-radius: 8px;
@@ -573,19 +159,9 @@
         cursor: pointer;
     }
     
-    .donation-option:hover {
-        background: #f0f0f0;
-    }
-    
     .donation-emoji {
         font-size: 24px;
         margin-right: 10px;
-        min-width: 30px;
-        text-align: center;
-    }
-    
-    .donation-content {
-        flex: 1;
     }
     
     .donation-title {
@@ -604,113 +180,17 @@
         color: #666;
         cursor: pointer;
     }
-    
-    /* Follow-up Cards */
-    .followup-card {
-        width: 300px;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        padding: 15px;
-        display: none;
-    }
-    
-    .followup-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-    
-    .followup-emoji {
-        font-size: 24px;
-        margin-right: 10px;
-    }
-    
-    .followup-title {
-        font-size: 18px;
-        font-weight: bold;
-    }
-    
-    .followup-content {
-        margin-bottom: 20px;
-    }
-    
-    .donate-button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        background: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-        margin-bottom: 10px;
-    }
-    
-    .back-link {
-        text-align: center;
-        padding: 10px;
-        color: #666;
-        cursor: pointer;
-    }
-</style>
-
-<!-- JavaScript -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Select elements
-        const donationOptions = document.querySelectorAll('.donation-option');
-        const followupCards = document.querySelectorAll('.followup-card');
-        const backLinks = document.querySelectorAll('.back-link');
-        const popupClose = document.querySelector('.popup-close');
-        
-        // Show donation popup by default
-        document.querySelector('.donation-popup').style.display = 'block';
-        
-        // Add click handlers to donation options
-        donationOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const optionNumber = this.dataset.option;
-                showFollowup(optionNumber);
-            });
-        });
-        
-        // Add click handlers to back links
-        backLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                hideAllFollowups();
-                document.querySelector('.donation-popup').style.display = 'block';
-            });
-        });
-        
-        // Close button
-        popupClose.addEventListener('click', function() {
-            document.querySelector('.donation-popup').style.display = 'none';
-        });
-        
-        // Helper functions
-        function showFollowup(number) {
-            hideAllFollowups();
-            document.querySelector('.donation-popup').style.display = 'none';
-            document.getElementById('followup' + number).style.display = 'block';
+</style>`;
+            
+            document.getElementById('codeOutput').value = generatedCode;
         }
         
-        function hideAllFollowups() {
-            followupCards.forEach(card => {
-                card.style.display = 'none';
-            });
-        }
-    });
-</script>`;
-            
-            // Output code and scroll to code section
-            document.getElementById('codeOutput').value = html;
-            document.querySelector('.code-section').scrollIntoView({ behavior: 'smooth' });
-            
-            console.log("Code generation complete!");
+        // Simple function to copy code
+        function copyCode() {
+            var codeOutput = document.getElementById('codeOutput');
+            codeOutput.select();
+            document.execCommand('copy');
+            alert('Code copied to clipboard!');
         }
     </script>
 </body>
