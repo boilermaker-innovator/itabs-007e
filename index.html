@@ -25,14 +25,12 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 30px;
         }
         
         /* Form section */
         .form-section {
-            flex: 1;
-            min-width: 320px;
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -157,14 +155,10 @@
         
         /* Code section */
         .code-section {
-            flex: 1;
-            min-width: 320px;
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             padding: 30px;
-            margin-top: 20px;
-            width: 100%;
         }
         
         .code-container {
@@ -174,7 +168,7 @@
         .code-textarea {
             width: 100%;
             height: 300px;
-            padding: 15px;
+            padding: 15px 15px 15px 15px;
             border: 1px solid #d1d5db;
             border-radius: 8px;
             font-family: monospace;
@@ -199,6 +193,10 @@
         
         .copy-button:hover {
             background: #4b5563;
+        }
+        
+        .copy-success {
+            background: #10b981 !important;
         }
     </style>
 </head>
@@ -376,11 +374,11 @@
             </form>
         </div>
 
-        <!-- Code Output Section (pre-created) -->
-        <div class="code-section" id="codeSection" style="display: none;">
+        <!-- Code Output Section (always present) -->
+        <div class="code-section">
             <h2>Generated Code</h2>
             <div class="code-container">
-                <textarea id="codeOutput" class="code-textarea" readonly></textarea>
+                <textarea id="codeOutput" class="code-textarea" placeholder="Click 'Generate Code' to create your donation widget code..." readonly></textarea>
                 <button id="copyButton" class="copy-button">Copy Code</button>
             </div>
         </div>
@@ -400,32 +398,42 @@
             // Copy button handler
             document.getElementById('copyButton').addEventListener('click', function() {
                 const codeOutput = document.getElementById('codeOutput');
+                if (!codeOutput.value) {
+                    alert("Please generate code first by clicking the 'Generate Code' button.");
+                    return;
+                }
+                
                 codeOutput.select();
                 try {
                     // Modern approach
                     navigator.clipboard.writeText(codeOutput.value)
                         .then(() => {
                             console.log("Code copied to clipboard using Clipboard API");
-                            this.textContent = 'Copied!';
-                            setTimeout(() => {
-                                this.textContent = 'Copy Code';
-                            }, 2000);
+                            showCopiedMessage();
                         })
                         .catch(err => {
                             console.error("Clipboard API failed:", err);
                             // Fallback to execCommand
                             document.execCommand('copy');
                             console.log("Code copied to clipboard using execCommand");
-                            this.textContent = 'Copied!';
-                            setTimeout(() => {
-                                this.textContent = 'Copy Code';
-                            }, 2000);
+                            showCopiedMessage();
                         });
                 } catch (err) {
                     console.error("Copy failed:", err);
                     alert("Failed to copy code. Please select and copy manually.");
                 }
             });
+            
+            function showCopiedMessage() {
+                const copyButton = document.getElementById('copyButton');
+                const originalText = copyButton.textContent;
+                copyButton.textContent = 'Copied!';
+                copyButton.classList.add('copy-success');
+                setTimeout(() => {
+                    copyButton.textContent = originalText;
+                    copyButton.classList.remove('copy-success');
+                }, 2000);
+            }
         });
 
         // Generate code function
@@ -698,12 +706,9 @@
     });
 </script>`;
             
-            // Show code section and output code
-            document.getElementById('codeSection').style.display = 'block';
+            // Output code and scroll to code section
             document.getElementById('codeOutput').value = html;
-            
-            // Scroll to code section
-            document.getElementById('codeSection').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('.code-section').scrollIntoView({ behavior: 'smooth' });
             
             console.log("Code generation complete!");
         }
